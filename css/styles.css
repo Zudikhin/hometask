@@ -14,7 +14,6 @@ ul,ol,li {
     margin: 0;
     padding: 0;
 }
-
 body {
     display: flex;
     flex-direction: column;
@@ -71,6 +70,59 @@ main>.sidebar {
 .header-content-logo>a>img {
     max-height: 100px;
     margin-right: 0.5rem;
-} 
+}
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-content-menu ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.footer-content-menu ul li {
+    padding: 10px 0px;
+}
+.footer-content-menu ul li a{
+    color: white;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+}
+.footer-content-contacts {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+.footer-content-contacts a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0px;
+}
+.footer-content-contacts span {
+    padding-bottom: 10px;
+}
+.footer-content-instagram {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100px;
+}
+.footer-content-instagram img {
+    width: 30px;
+    height: 30px;
+    padding: 5px 0px;
+}
+.footer-content-copyrigth {
+    flex-wrap: wrap;
+    width: 250px;
+}
+
+
 
 
