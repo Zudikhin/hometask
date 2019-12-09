@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav id="menu"></nav>
+
+    <script>
+        let menuContainer = document.getElementById('menu');
+        let menuArray = [
+            {
+                text: 'Home',
+            },
+            {
+                text: 'Contact',
+            }
+        ];
+
+        function renderMenu(array) {
+            let ul = document.createElement('ul');
+            menuContainer.appendChild(ul);
+            array.map((menuItem, index) => {
+                let li = document.createElement('li');
+                ul.appendChild(li);
+                let a = document.createElement('a');
+                a.text = `${menuItem.text}`;
+                li.appendChild(a);
+            });
+        }
+        renderMenu(menuArray);
+
+
+        /*                      function renderMenu(array) {
+                                let code = '<ul>';
+                                    array.map( (menuItem, index) => {
+                                        code += `<li data-item="${index}">
+                                                    <a href="${menuItem.url}">
+                                                        ${menuItem.text}
+                                                    </a>`;
+                                        if(menuItem.children) {
+                                            code += renderMenu(menuItem.children);
+                                        }
+                                        code += `</li>`;
+                                    });
+                                code += '</ul>';
+                                return code;
+                            }
+
+
+
+                        menuContainer.innerHTML = renderMenu(menuArray); */
+
+    </script>
+
+</body>
+
+</html>
