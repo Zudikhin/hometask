@@ -78,3 +78,13 @@ function hideActive() {
   btnHide.classList.remove("active");
   menuContainer.classList.remove("show");
 }
+
+let main = document.querySelector(".main");
+document.addEventListener("click", function(event) {
+  var isClickInside = main.contains(event.target);
+  if (!isClickInside) {
+    menuContainer.classList.remove("show");
+    btnShow.classList.remove("active");
+    btnHide.classList.remove("active");
+  }
+});
