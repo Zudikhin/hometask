@@ -1,0 +1,23 @@
+#menu {
+    transform: translateX(-300px);
+}
+
+#menu.show {
+    transform: translateX(0px);
+}
+
+#show {
+    display: block;
+}
+
+#hide {
+    display: none;
+}
+
+#show.active {
+    display: none;
+}
+
+#hide.active {
+    display: block;
+}
