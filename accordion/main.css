@@ -1,0 +1,24 @@
+.accordion {
+  width: 500px;
+  margin-top: 40px;
+  background-color: black;
+  border-radius: 5px;
+  background: #1e1e1e;
+  padding: 10px 30px 10px 30px;
+  cursor: pointer;
+}
+.accordion p {
+  display: none;
+  color: white;
+  text-align: center;
+}
+.accordion.open p {
+  display: block;
+  padding-bottom: 15px;
+}
+.accordion h3 {
+  color: #ffffff;
+  opacity: 0.5;
+  font-size: 26px;
+  margin-left: 10px;
+}
