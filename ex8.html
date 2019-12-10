@@ -14,49 +14,62 @@
 
     <script>
         let menuContainer = document.getElementById('menu');
-        let menuArray = [
-            {
+        let menuArray = [{
                 text: 'Home',
+                url: '/',
+                children: [{
+                    text: 'Web Design',
+                    url: '/works/web',
+                    children: [{
+                            text: 'Frontend',
+                            url: '/works/web/front'
+                        },
+                        {
+                            text: 'Backend',
+                            url: '/works/web/back'
+                        }
+                    ]
+                }]
             },
             {
                 text: 'Contact',
+                url: '/contact'
+            },
+            {
+                text: 'About us',
+                url: '/about',
+                children: [{
+                        text: 'Web Design',
+                        url: '/works/web'
+                    },
+                    {
+                        text: 'Mobile App',
+                        url: '/works/app'
+                    },
+                    {
+                        text: 'Graphic Design',
+                        url: '/works/graphics'
+                    }
+                ]
             }
         ];
 
         function renderMenu(array) {
             let ul = document.createElement('ul');
-            menuContainer.appendChild(ul);
             array.map((menuItem, index) => {
                 let li = document.createElement('li');
                 ul.appendChild(li);
                 let a = document.createElement('a');
+                a.href = `${menuItem.url}`;
                 a.text = `${menuItem.text}`;
                 li.appendChild(a);
+                if (menuItem.children) {
+                    li.appendChild(renderMenu(menuItem.children));
+                }
             });
+            return ul;
         }
-        renderMenu(menuArray);
-
-
-        /*                      function renderMenu(array) {
-                                let code = '<ul>';
-                                    array.map( (menuItem, index) => {
-                                        code += `<li data-item="${index}">
-                                                    <a href="${menuItem.url}">
-                                                        ${menuItem.text}
-                                                    </a>`;
-                                        if(menuItem.children) {
-                                            code += renderMenu(menuItem.children);
-                                        }
-                                        code += `</li>`;
-                                    });
-                                code += '</ul>';
-                                return code;
-                            }
-
-
-
-                        menuContainer.innerHTML = renderMenu(menuArray); */
-
+        menuContainer.appendChild(renderMenu(menuArray));
     </script>
 
 </body>
