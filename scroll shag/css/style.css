@@ -1,0 +1,43 @@
+body, html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.block {
+    width: 200px;
+    height: 500px;
+    margin: 0 auto;
+    border: 1px solid #999;
+    overflow: auto;
+}
+.scroll-container {
+    overflow: hidden !important;
+    position: relative;
+    padding-right: 20px;
+    top: 30px;
+}
+.scroll-bar {
+    height: 100%;
+    width: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(230, 236, 238);
+}
+.scroll-bar>.scroll-marker {
+    min-height: 20px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(148, 196, 209);
+    cursor: pointer;
+}
+.block>.scroll-content {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 10px;
+    user-select: none;
+}
