@@ -56,12 +56,14 @@ scrollMarker.addEventListener("mousedown", event => {
       (scrollBar.clientHeight - scrollMarker.clientHeight);
     scrollContent.style.top =
       (scrollContainer.clientHeight - scrollContent.clientHeight) *
-        scrollPercentage +
+      scrollPercentage +
       "px";
     // контент скролиться при зажатии на маркер
   }
 });
 
 scrollBar.addEventListener("click", event => {
-  console.log(scrollMarker.offsetTop);
+  let undermarker = scrollBar.clientHeight - (scrollMarker.clientHeight + scrollMarker.offsetTop);
+  console.log(event.clientY);
+  scrollContent.style.top = scrollContent.offsetTop - 10 + "px";
 });
