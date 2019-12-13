@@ -27,20 +27,21 @@ html {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: brown;
+  background-color: rgb(230, 236, 238);
+  cursor: pointer;
 }
 
-.scroll-bar>.scroll-marker {
+.scroll-bar > .scroll-marker {
   height: 20px;
   width: 100%;
   position: absolute;
   top: 0;
   right: 0;
-  background-color: green;
+  background-color: rgb(148, 196, 209);
   cursor: pointer;
 }
 
-.block>.scroll-content {
+.block > .scroll-content {
   position: absolute;
   box-sizing: border-box;
   padding: 10px;

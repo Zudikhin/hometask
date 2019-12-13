@@ -7,6 +7,7 @@ scrollContainer.addEventListener("wheel", event => {
   let scrollPercentage =
     scrollContent.offsetTop /
     (scrollContainer.clientHeight - scrollContent.clientHeight);
+
   if (event.deltaY > 0) {
     //скролл вниз
     if (
@@ -56,14 +57,20 @@ scrollMarker.addEventListener("mousedown", event => {
       (scrollBar.clientHeight - scrollMarker.clientHeight);
     scrollContent.style.top =
       (scrollContainer.clientHeight - scrollContent.clientHeight) *
-      scrollPercentage +
+        scrollPercentage +
       "px";
     // контент скролиться при зажатии на маркер
   }
 });
 
 scrollBar.addEventListener("click", event => {
-  let undermarker = scrollBar.clientHeight - (scrollMarker.clientHeight + scrollMarker.offsetTop);
-  console.log(event.clientY);
-  scrollContent.style.top = scrollContent.offsetTop - 10 + "px";
+  let Percentage = ((event.clientY - 50) * 100) / scrollBar.clientHeight;
+  let scrollPercentage = Percentage / 100;
+  scrollContent.style.top =
+    (scrollContainer.clientHeight - scrollContent.clientHeight) *
+      scrollPercentage +
+    "px";
+  scrollMarker.style.top =
+    (scrollBar.clientHeight - scrollMarker.clientHeight) * scrollPercentage +
+    "px";
 });

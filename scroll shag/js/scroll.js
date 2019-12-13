@@ -4,8 +4,7 @@ let scrollBar = scrollContainer.querySelector('.scroll-bar');
 let scrollMarker = scrollContainer.querySelector('.scroll-marker');
 
 scrollMarker.style.height = scrollBar.clientHeight * scrollContainer.clientHeight / scrollContent.clientHeight + 'px';
-console.log(scrollBar.clientHeight);
-/* scrollContainer.addEventListener('wheel', (event) => {
+ scrollContainer.addEventListener('wheel', (event) => {
     let scrollPercentage = scrollContent.offsetTop / (scrollContainer.clientHeight - scrollContent.clientHeight);
     if (event.deltaY > 0) {
         if (scrollContent.clientHeight + scrollContent.offsetTop > scrollContainer.clientHeight) {
@@ -36,4 +35,4 @@ scrollMarker.addEventListener('mousedown', (event) => {
         let scrollPercentage = scrollMarker.offsetTop / (scrollBar.clientHeight - scrollMarker.clientHeight);
         scrollContent.style.top = (scrollContainer.clientHeight - scrollContent.clientHeight) * scrollPercentage + 'px';
     }
-}) */
+})
