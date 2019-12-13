@@ -1,0 +1,38 @@
+<div class="slider-container">
+                    
+    <div class="slides">
+
+        <div class="slide-item active">
+            <div class="slide-item-image">
+                <img src="images/slides/1.jpg" alt="Slide 1">
+            </div>
+            <div class="slide-item-text">
+                <h3>Title 1</h3>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias, dolor temporibus ullam ab numquam autem saepe accusantium corrupti doloribus ipsam.</p>
+            </div>
+        </div>
+        <div class="slide-item">
+            <div class="slide-item-image">
+                <img src="images/slides/2.jpg" alt="Slide 2">
+            </div>
+            <div class="slide-item-text">
+                <h3>Title 2</h3>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias, dolor temporibus ullam ab numquam autem saepe accusantium corrupti doloribus ipsam.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="slider-prev">
+        <i class="icon-left-open-big"></i>
+    </button>
+    <button class="slider-next">
+        <i class="icon-right-open-big"></i>
+    </button>
+
+    <div class="slider-bullets">
+        <a href="#" class="active"></a>
+        <a href="#"></a>
+    </div>
+
+</div>
