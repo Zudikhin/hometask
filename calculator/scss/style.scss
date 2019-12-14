@@ -9,9 +9,9 @@ input {
   border: none;
 }
 .calculator {
-  height: 700px;
-  width: 915px;
-  background-color: rgba(174, 174, 174, 0.5);  
+  height: 500px;
+  width: 654px;
+  background-color: rgba(174, 174, 174, 0.5);
   margin: 50px auto;
   border: 1px solid black;
   box-sizing: border-box;
@@ -21,9 +21,25 @@ input {
   &__main {
     background-color: transparent;
     height: 100%;
-    width: 658px;
+    width: 470px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    display: flex;
+    position: relative;
+  }
+  &__keyboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-self: flex-end;
+  }
+  &__keyboard button {
+    width: 25%;
+    height: 50px;
+  }
+  &__result {
+    position: absolute;
+    top: 30%;
+    right: 0;
   }
 }
-
-
-

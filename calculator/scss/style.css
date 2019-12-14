@@ -11,8 +11,8 @@ input {
 }
 
 .calculator {
-  height: 700px;
-  width: 915px;
+  height: 500px;
+  width: 654px;
   background-color: rgba(174, 174, 174, 0.5);
   margin: 50px auto;
   border: 1px solid black;
@@ -24,7 +24,26 @@ input {
 .calculator__main {
   background-color: transparent;
   height: 100%;
-  width: 658px;
+  width: 470px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  display: flex;
+  position: relative;
+}
+.calculator__keyboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-self: flex-end;
+}
+.calculator__keyboard button {
+  width: 25%;
+  height: 50px;
+}
+.calculator__result {
+  position: absolute;
+  top: 30%;
+  right: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
