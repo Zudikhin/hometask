@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="scss/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Calculator</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-  <link rel="stylesheet" href="scss/style.css" />
-</head>
-
-<body>
-  <div class="calculator">
-    <div class="calculator__main">
-      <div class="calculator__result"></div>
-      <div class="calculator__keyboard">
-        <button id="percent">%</button>
-        <button id="ce">CE</button>
-        <button id="c">C</button>
-        <button id="backspace"><i class="fas fa-backspace"></i></button>
-        <button id="onex">1/x</button>
-        <button id="square">x2</button>
-        <button id="root"><i class="fas fa-square-root-alt"></i></button>
-        <button class="operations" id="divide" value="/">
-          <i class="fas fa-divide"></i>
-        </button>
-        <button class="numbers" id="seven" value="7">7</button>
-        <button class="numbers" id="eight" value="8">8</button>
-        <button class="numbers" id="nine" value="9">9</button>
-        <button class="operations" id="times" value="*">
-          <i class="fas fa-times"></i>
-        </button>
-        <button class="numbers" id="four" value="4">4</button>
-        <button class="numbers" id="five" value="5">5</button>
-        <button class="numbers" id="six" value="6">6</button>
-        <button class="operations" id="minus" value="-">-</button>
-        <button class="numbers" id="one" value="1">1</button>
-        <button class="numbers" id="two" value="2">2</button>
-        <button class="numbers" id="three" value="3">3</button>
-        <button class="operations" id="plus" value="+">+</button>
-        <button id="change_plus_minus">+/-</button>
-        <button class="numbers" id="zero" value="7">0</button>
-        <button id="coma" value=".">,</button>
-        <button id="equal">=</button>
+  <body>
+    <div class="calculator">
+      <div class="calculator__main">
+        <div class="calculator__result"></div>
+        <div class="calculator__answer"></div>
+        <div class="calculator__keyboard">
+          <button id="percent">%</button>
+          <button id="ce">CE</button>
+          <button id="c">C</button>
+          <button id="backspace"><i class="fas fa-backspace"></i></button>
+          <button id="onex">1/x</button>
+          <button id="square">x2</button>
+          <button id="root"><i class="fas fa-square-root-alt"></i></button>
+          <button class="operations" id="divide" value="/">
+            <i class="fas fa-divide"></i>
+          </button>
+          <button class="numbers" id="seven" value="7">7</button>
+          <button class="numbers" id="eight" value="8">8</button>
+          <button class="numbers" id="nine" value="9">9</button>
+          <button class="operations" id="times" value="*">
+            <i class="fas fa-times"></i>
+          </button>
+          <button class="numbers" id="four" value="4">4</button>
+          <button class="numbers" id="five" value="5">5</button>
+          <button class="numbers" id="six" value="6">6</button>
+          <button class="operations" id="minus" value="-">-</button>
+          <button class="numbers" id="one" value="1">1</button>
+          <button class="numbers" id="two" value="2">2</button>
+          <button class="numbers" id="three" value="3">3</button>
+          <button class="operations" id="plus" value="+">+</button>
+          <button id="change_plus_minus">+/-</button>
+          <button class="numbers" id="zero" value="7">0</button>
+          <button id="coma" value=".">,</button>
+          <button id="equal">=</button>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="js/main.js"></script>
-</body>
-
+    <script src="js/main.js"></script>
+  </body>
 </html>

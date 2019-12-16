@@ -40,7 +40,7 @@ input {
   width: 25%;
   height: 50px;
 }
-.calculator__result {
+.calculator__answer {
   position: absolute;
   top: 30%;
   right: 0;

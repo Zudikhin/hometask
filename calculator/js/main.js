@@ -1,6 +1,7 @@
 "use strict";
 let calculator = document.querySelector(".calculator");
 let calculatorMain = document.querySelector(".calculator__main");
+let calculatorAnswer = document.querySelector(".calculator__answer");
 let calculatorResult = document.querySelector(".calculator__result");
 let calculatorKeyboard = document.querySelector(".calculator__keyboard");
 let percent = document.querySelector(".percent");
@@ -40,14 +41,29 @@ two.addEventListener("click", addNumber);
 three.addEventListener("click", addNumber);
 zero.addEventListener("click", addNumber);
 
+let answer = "0";
+/* сделать переменную с ответом если при клике не совпадает то очищать и иннерхтмл */
+
 function addNumber(event) {
-  calculatorResult.innerHTML += event.target.innerHTML;
+  if (calculatorAnswer.innerHTML == answer) {
+    calculatorResult.innerHTML = event.target.innerHTML;
+  } else {
+    calculatorAnswer.innerHTML += event.target.innerHTML;
+    calculatorResult.innerHTML += event.target.innerHTML;
+  }
 }
 
 plus.addEventListener("click", operatePlus);
-
 function operatePlus() {
-  let num = calculatorResult.innerHTML;
-  let znak = calculatorResult.innerHTML = "+";
-  console.log(num);
+  calculatorAnswer.innerHTML = "";
+  calculatorResult.innerHTML += "+";
+}
+
+equal.addEventListener("click", operateEqual);
+function operateEqual() {
+  let result = eval(calculatorResult.innerHTML);
+  calculatorAnswer.innerHTML = result;
+  calculatorResult.innerHTML = result;
+  answer = result;
+  console.log(answer);
 }
