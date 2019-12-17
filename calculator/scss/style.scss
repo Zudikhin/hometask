@@ -20,11 +20,12 @@ input {
   -webkit-box-shadow: 1px 4px 36px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 1px 4px 36px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 4px 36px -5px rgba(0, 0, 0, 0.75);
+  display: flex;
 
   &__main {
     background-color: transparent;
     height: 100%;
-    width: 470px;
+    width: 72%;
     box-sizing: border-box;
     border: 1px solid black;
     display: flex;
@@ -47,5 +48,13 @@ input {
     position: absolute;
     top: 30%;
     right: 0;
+  }
+  &__answers {
+    width: 30%;
+  }
+  &__result {
+    position: absolute;
+    right: 0;
+    top: 20%;
   }
 }

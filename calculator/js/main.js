@@ -18,7 +18,7 @@ let plus = document.querySelector("#plus");
 let times = document.querySelector("#times");
 let divide = document.querySelector("#divide");
 let minus = document.querySelector("#minus");
-
+let calculatorLastAnswers = document.querySelector(".calculator__answers");
 let seven = document.querySelector("#seven");
 let eight = document.querySelector("#eight");
 let nine = document.querySelector("#nine");
@@ -42,10 +42,33 @@ three.addEventListener("click", addNumber);
 zero.addEventListener("click", addNumber);
 
 let answer = "0";
-/* сделать переменную с ответом если при клике не совпадает то очищать и иннерхтмл */
+let answers = [];
+let has_result = false;
+
+function renderAnswers() {
+  if (answers.length >= 20) {
+    answers.splice(0, 1);
+    calculatorLastAnswers.innerHTML = "";
+    answers.forEach(element => {
+      let p = document.createElement("p");
+      calculatorLastAnswers.appendChild(p);
+      p.innerHTML = element;
+    });
+    console.log(answers);
+  } else {
+    calculatorLastAnswers.innerHTML = "";
+    answers.forEach(element => {
+      let p = document.createElement("p");
+      calculatorLastAnswers.appendChild(p);
+      p.innerHTML = element;
+    });
+  }
+}
 
 function addNumber(event) {
-  if (calculatorAnswer.innerHTML == answer) {
+  if (has_result) {
+    has_result = false;
+    calculatorAnswer.innerHTML = event.target.innerHTML;
     calculatorResult.innerHTML = event.target.innerHTML;
   } else {
     calculatorAnswer.innerHTML += event.target.innerHTML;
@@ -57,13 +80,60 @@ plus.addEventListener("click", operatePlus);
 function operatePlus() {
   calculatorAnswer.innerHTML = "";
   calculatorResult.innerHTML += "+";
+  has_result = false;
+}
+
+times.addEventListener("click", operateTimes);
+function operateTimes() {
+  calculatorAnswer.innerHTML = "";
+  calculatorResult.innerHTML += "*";
+  has_result = false;
+}
+
+minus.addEventListener("click", operateMinus);
+function operateMinus() {
+  calculatorAnswer.innerHTML = "";
+  calculatorResult.innerHTML += "-";
+  has_result = false;
+}
+
+divide.addEventListener("click", operateDivide);
+function operateDivide() {
+  calculatorAnswer.innerHTML = "";
+  calculatorResult.innerHTML += "/";
+  has_result = false;
+}
+
+backspace.addEventListener("click", deleteLast);
+function deleteLast() {
+  let beforeCalculatorAnswer = calculatorAnswer.innerHTML;
+  let afterCalculatorAnswer = beforeCalculatorAnswer.slice(0, -1);
+  let beforeCalculatorResult = calculatorResult.innerHTML;
+  let afterCalculatorResult = beforeCalculatorResult.slice(0, -1);
+  calculatorAnswer.innerHTML = afterCalculatorAnswer;
+  calculatorResult.innerHTML = afterCalculatorResult;
+}
+
+square.addEventListener("click", operateSquare);
+function operateSquare() {
+  let square = calculatorAnswer.innerHTML * calculatorAnswer.innerHTML;
+  let result = calculatorResult.innerHTML;
+  console.log(calculatorResult.innerHTML);
+  result.forEach(element => {
+    console.log(element);
+  });
+  calculatorResult.innerHTML = square;
 }
 
 equal.addEventListener("click", operateEqual);
 function operateEqual() {
+  has_result = true;
+  let equation = calculatorResult.innerHTML;
   let result = eval(calculatorResult.innerHTML);
   calculatorAnswer.innerHTML = result;
   calculatorResult.innerHTML = result;
   answer = result;
-  console.log(answer);
+  let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${result}</span>`;
+  answers.push(addItem);
+  renderAnswers();
 }
