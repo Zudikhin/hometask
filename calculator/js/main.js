@@ -117,12 +117,9 @@ function deleteLast() {
 square.addEventListener("click", operateSquare);
 function operateSquare() {
   let square = calculatorAnswer.innerHTML * calculatorAnswer.innerHTML;
-  let result = calculatorResult.innerHTML;
-  console.log(calculatorResult.innerHTML);
-  result.forEach(element => {
-    console.log(element);
-  });
-  calculatorResult.innerHTML = square;
+  let string = calculatorResult.innerHTML;
+  let separate = string.split("+");
+  console.log(separate);
 }
 
 equal.addEventListener("click", operateEqual);
