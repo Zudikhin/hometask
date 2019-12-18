@@ -114,13 +114,19 @@ function deleteLast() {
   calculatorResult.innerHTML = afterCalculatorResult;
 }
 
-square.addEventListener("click", operateSquare);
+/* square.addEventListener("click", operateSquare);
 function operateSquare() {
-  let square = calculatorAnswer.innerHTML * calculatorAnswer.innerHTML;
-  let string = calculatorResult.innerHTML;
-  let separate = string.split("+");
-  console.log(separate);
-}
+  let stringAnswer = calculatorAnswer.innerHTML;
+  let sizeStringAnswer = stringAnswer.length; // длина строки ответа
+  let stringResult = calculatorResult.innerHTML;
+  let deleteLast = stringResult.substring(
+    0,
+    stringResult.length - sizeStringAnswer
+  );
+  let parsing = parseInt(stringAnswer);
+  let square = parsing * parsing;
+  calculatorResult.innerHTML = deleteLast + square;
+} */
 
 equal.addEventListener("click", operateEqual);
 function operateEqual() {
