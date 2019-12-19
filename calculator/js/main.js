@@ -41,6 +41,31 @@ two.addEventListener("click", addNumber);
 three.addEventListener("click", addNumber);
 zero.addEventListener("click", addNumber);
 
+let satement = [
+  {
+    val: "145",
+    type: "num"
+  },
+  {
+    val: "+",
+    type: "oper"
+  },
+  {
+    val: "12",
+    type: "num"
+  },
+  {
+    val: "-",
+    type: "oper"
+  }
+];
+
+statement.append({
+  val: "19",
+  type: "num"
+});
+// 145 + 12 - 19
+
 let answer = "0";
 let answers = [];
 let has_result = false;
@@ -79,6 +104,20 @@ function addNumber(event) {
 plus.addEventListener("click", operatePlus);
 function operatePlus() {
   calculatorAnswer.innerHTML = "";
+  let sizeCalculatorResult = calculatorResult.innerHTML;
+  let lastSymbol = sizeCalculatorResult.slice(-1);
+  if (
+    lastSymbol == "-" ||
+    lastSymbol == "/" ||
+    lastSymbol == "*" ||
+    lastSymbol == "+"
+  ) {
+    let circumcisionString = sizeCalculatorResult.substring(
+      0,
+      sizeCalculatorResult.length - 1
+    );
+    calculatorResult.innerHTML = circumcisionString;
+  }
   calculatorResult.innerHTML += "+";
   has_result = false;
 }
@@ -86,6 +125,20 @@ function operatePlus() {
 times.addEventListener("click", operateTimes);
 function operateTimes() {
   calculatorAnswer.innerHTML = "";
+  let sizeCalculatorResult = calculatorResult.innerHTML;
+  let lastSymbol = sizeCalculatorResult.slice(-1);
+  if (
+    lastSymbol == "+" ||
+    lastSymbol == "/" ||
+    lastSymbol == "-" ||
+    lastSymbol == "*"
+  ) {
+    let circumcisionString = sizeCalculatorResult.substring(
+      0,
+      sizeCalculatorResult.length - 1
+    );
+    calculatorResult.innerHTML = circumcisionString;
+  }
   calculatorResult.innerHTML += "*";
   has_result = false;
 }
@@ -100,6 +153,20 @@ function operateMinus() {
 divide.addEventListener("click", operateDivide);
 function operateDivide() {
   calculatorAnswer.innerHTML = "";
+  let sizeCalculatorResult = calculatorResult.innerHTML;
+  let lastSymbol = sizeCalculatorResult.slice(-1);
+  if (
+    lastSymbol == "-" ||
+    lastSymbol == "+" ||
+    lastSymbol == "*" ||
+    lastSymbol == "/"
+  ) {
+    let circumcisionString = sizeCalculatorResult.substring(
+      0,
+      sizeCalculatorResult.length - 1
+    );
+    calculatorResult.innerHTML = circumcisionString;
+  }
   calculatorResult.innerHTML += "/";
   has_result = false;
 }
@@ -117,7 +184,7 @@ function deleteLast() {
 /* square.addEventListener("click", operateSquare);
 function operateSquare() {
   let stringAnswer = calculatorAnswer.innerHTML;
-  let sizeStringAnswer = stringAnswer.length; // длина строки ответа
+  let sizeStringAnswer = stringAnswer.length;
   let stringResult = calculatorResult.innerHTML;
   let deleteLast = stringResult.substring(
     0,
@@ -125,8 +192,67 @@ function operateSquare() {
   );
   let parsing = parseInt(stringAnswer);
   let square = parsing * parsing;
-  calculatorResult.innerHTML = deleteLast + square;
+  calculatorAnswer.innerHTML = square;
+  calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+  if (isNaN(square)) {
+    calculatorAnswer.innerHTML = "";
+    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+  }
 } */
+
+square.addEventListener("click", operateSquare);
+function operateSquare() {
+  let sizeCalculatorResult = calculatorResult.innerHTML;
+  let lastSymbol = sizeCalculatorResult.slice(-1);
+  if (
+    lastSymbol == "+" ||
+    lastSymbol == "-" ||
+    lastSymbol == "/" ||
+    lastSymbol == "*"
+  ) {
+    let circumcisionString = sizeCalculatorResult.substring(
+      0,
+      sizeCalculatorResult.length - 1
+    );
+    let squareCircumcisionString = circumcisionString * circumcisionString;
+    calculatorResult.innerHTML = squareCircumcisionString;
+  } else {
+    let stringAnswer = calculatorAnswer.innerHTML;
+    let sizeStringAnswer = stringAnswer.length;
+    let stringResult = calculatorResult.innerHTML;
+    let deleteLast = stringResult.substring(
+      0,
+      stringResult.length - sizeStringAnswer
+    );
+    let parsing = parseInt(stringAnswer);
+    let square = parsing * parsing;
+    calculatorAnswer.innerHTML = square;
+    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+    if (isNaN(square)) {
+      calculatorAnswer.innerHTML = "";
+      calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+    }
+  }
+}
+
+onex.addEventListener("click", operateOneDivide);
+function operateOneDivide() {
+  let stringAnswer = calculatorAnswer.innerHTML;
+  let sizeStringAnswer = stringAnswer.length;
+  let stringResult = calculatorResult.innerHTML;
+  let deleteLast = stringResult.substring(
+    0,
+    stringResult.length - sizeStringAnswer
+  );
+  let parsing = parseInt(stringAnswer);
+  let oneDivide = 1 / parsing;
+  calculatorAnswer.innerHTML = oneDivide;
+  calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+  if (isNaN(rounding)) {
+    calculatorAnswer.innerHTML = "";
+    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+  }
+}
 
 equal.addEventListener("click", operateEqual);
 function operateEqual() {
