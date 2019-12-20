@@ -41,32 +41,121 @@ two.addEventListener("click", addNumber);
 three.addEventListener("click", addNumber);
 zero.addEventListener("click", addNumber);
 
-let satement = [
-  {
-    val: "145",
-    type: "num"
-  },
-  {
-    val: "+",
-    type: "oper"
-  },
-  {
-    val: "12",
-    type: "num"
-  },
-  {
-    val: "-",
-    type: "oper"
+plus.addEventListener("click", addOperate);
+minus.addEventListener("click", addOperate);
+divide.addEventListener("click", addOperate);
+times.addEventListener("click", addOperate);
+
+let statement = [];
+
+function addNumber(event) {
+  calculatorResult.innerHTML += event.target.value;
+  calculatorAnswer.innerHTML += event.target.value;
+}
+
+function addOperate(event) {
+  if (calculatorAnswer.innerHTML == "") {
+    if (statement.length == 0) {
+      statement.push({
+        val: event.target.value,
+        type: "operate"
+      });
+      calculatorResult.innerHTML += "+";
+    } else if (statement.slice(-1)[0].type == "operate") {
+      statement.splice(-1, 1);
+      statement.push({
+        val: event.target.value,
+        type: "operate"
+      });
+    }
+    calculatorAnswer.innerHTML = "";
+  } else {
+    statement.push({
+      val: calculatorAnswer.innerHTML,
+      type: "num"
+    });
+    statement.push({
+      val: "+",
+      type: "operate"
+    });
+
+    calculatorAnswer.innerHTML = "";
+    calculatorResult.innerHTML += "+";
   }
-];
+}
 
-statement.append({
-  val: "19",
-  type: "num"
-});
-// 145 + 12 - 19
+equal.addEventListener("click", operateEqual);
+function operateEqual() {
+  if (calculatorAnswer.innerHTML != "") {
+    statement.push({
+      val: calculatorAnswer.innerHTML,
+      type: "num"
+    });
+  } else if (statement.slice(-1)[0].type == "operate") {
+    statement.splice(-1, 1);
+  }
+  console.log(statement);
+}
 
-let answer = "0";
+/* square.addEventListener("click", operateSquare);
+function operateSquare() {
+  let stringAnswer = calculatorAnswer.innerHTML;
+  let sizeStringAnswer = stringAnswer.length;
+  let stringResult = calculatorResult.innerHTML;
+  let deleteLast = stringResult.substring(
+    0,
+    stringResult.length - sizeStringAnswer
+  );
+  let parsing = parseInt(stringAnswer);
+  let square = parsing * parsing;
+  calculatorAnswer.innerHTML = square;
+  calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+  if (isNaN(square)) {
+    calculatorAnswer.innerHTML = "";
+    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+  }
+} */
+
+// statement.slice(-1)[0].val
+
+/* function addOperate(event) {
+  if (statement.length == 0) {
+
+    if(calculatorAnswer.innerHTML == "") {
+      statement.push({
+        val: event.target.value,
+        type: "operate"
+      });
+    } else {
+      statement.push({
+        val: calculatorAnswer.innerHTML,
+        type: "num"
+      });
+      statement.push({
+        val: event.target.value,
+        type: "operate"
+      });
+    }
+
+  } else if (statement.slice(-1)[0].type == "num") {
+    statement.push({
+      val: event.target.value,
+      type: "operate"
+    });
+  } else if (statement.slice(-1)[0].type == "operate") {
+    statement.push({
+      val: calculatorAnswer.innerHTML,
+      type: "num"
+    });
+    statement.push({
+      val: event.target.value,
+      type: "operate"
+    });
+  }
+  console.log(statement);
+} */
+
+/* let answer = "0";
 let answers = [];
 let has_result = false;
 
@@ -87,17 +176,6 @@ function renderAnswers() {
       calculatorLastAnswers.appendChild(p);
       p.innerHTML = element;
     });
-  }
-}
-
-function addNumber(event) {
-  if (has_result) {
-    has_result = false;
-    calculatorAnswer.innerHTML = event.target.innerHTML;
-    calculatorResult.innerHTML = event.target.innerHTML;
-  } else {
-    calculatorAnswer.innerHTML += event.target.innerHTML;
-    calculatorResult.innerHTML += event.target.innerHTML;
   }
 }
 
@@ -181,7 +259,7 @@ function deleteLast() {
   calculatorResult.innerHTML = afterCalculatorResult;
 }
 
-/* square.addEventListener("click", operateSquare);
+square.addEventListener("click", operateSquare);
 function operateSquare() {
   let stringAnswer = calculatorAnswer.innerHTML;
   let sizeStringAnswer = stringAnswer.length;
@@ -198,7 +276,7 @@ function operateSquare() {
     calculatorAnswer.innerHTML = "";
     calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
   }
-} */
+}
 
 square.addEventListener("click", operateSquare);
 function operateSquare() {
@@ -265,4 +343,4 @@ function operateEqual() {
   let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${result}</span>`;
   answers.push(addItem);
   renderAnswers();
-}
+} */
