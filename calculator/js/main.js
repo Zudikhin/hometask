@@ -47,26 +47,45 @@ divide.addEventListener("click", addOperate);
 times.addEventListener("click", addOperate);
 
 let statement = [];
+let answers = [];
+let has_result = false;
 
 function addNumber(event) {
-  calculatorResult.innerHTML += event.target.value;
-  calculatorAnswer.innerHTML += event.target.value;
+  if (has_result) {
+    has_result = false;
+    calculatorAnswer.innerHTML = event.target.innerHTML;
+    calculatorResult.innerHTML = event.target.innerHTML;
+  } else {
+    calculatorAnswer.innerHTML += event.target.innerHTML;
+    calculatorResult.innerHTML += event.target.innerHTML;
+  }
 }
 
 function addOperate(event) {
   if (calculatorAnswer.innerHTML == "") {
+    has_result = false;
     if (statement.length == 0) {
       statement.push({
         val: event.target.value,
         type: "operate"
       });
-      calculatorResult.innerHTML += "+";
+      calculatorResult.innerHTML += event.target.value;
     } else if (statement.slice(-1)[0].type == "operate") {
       statement.splice(-1, 1);
       statement.push({
         val: event.target.value,
         type: "operate"
       });
+      let result = calculatorResult.innerHTML;
+      let separate = result.substring(0, result.length - 1);
+      calculatorResult.innerHTML = separate;
+      calculatorResult.innerHTML += statement.slice(-1)[0].val;
+    } else if (statement.slice(-1)[0].type == "num") {
+      statement.push({
+        val: event.target.value,
+        type: "operate"
+      });
+      calculatorResult.innerHTML += event.target.value;
     }
     calculatorAnswer.innerHTML = "";
   } else {
@@ -75,17 +94,36 @@ function addOperate(event) {
       type: "num"
     });
     statement.push({
-      val: "+",
+      val: event.target.value,
       type: "operate"
     });
-
     calculatorAnswer.innerHTML = "";
-    calculatorResult.innerHTML += "+";
+    calculatorResult.innerHTML += event.target.value;
+  }
+}
+
+function renderAnswers() {
+  if (answers.length >= 20) {
+    answers.splice(0, 1);
+    calculatorLastAnswers.innerHTML = "";
+    answers.forEach(element => {
+      let p = document.createElement("p");
+      calculatorLastAnswers.appendChild(p);
+      p.innerHTML = element;
+    });
+  } else {
+    calculatorLastAnswers.innerHTML = "";
+    answers.forEach(element => {
+      let p = document.createElement("p");
+      calculatorLastAnswers.appendChild(p);
+      p.innerHTML = element;
+    });
   }
 }
 
 equal.addEventListener("click", operateEqual);
 function operateEqual() {
+  has_result = true;
   if (calculatorAnswer.innerHTML != "") {
     statement.push({
       val: calculatorAnswer.innerHTML,
@@ -94,8 +132,46 @@ function operateEqual() {
   } else if (statement.slice(-1)[0].type == "operate") {
     statement.splice(-1, 1);
   }
-  console.log(statement);
+  let result = calculatorResult.innerHTML;
+  if (
+    result.slice(-1) == "+" ||
+    result.slice(-1) == "-" ||
+    result.slice(-1) == "/" ||
+    result.slice(-1) == "*"
+  ) {
+    result.substring(0, result.length - 1);
+    let firstFinish = eval(result.substring(0, result.length - 1));
+    calculatorResult.innerHTML = firstFinish;
+    calculatorAnswer.innerHTML = firstFinish;
+    let equation = result;
+    let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${firstFinish}</span>`;
+    answers.push(addItem);
+    renderAnswers();
+    calculatorAnswer.innerHTML = "";
+    statement = [];
+    statement.push({
+      val: firstFinish,
+      type: "num"
+    });
+  } else {
+    let secondFinish = eval(calculatorResult.innerHTML);
+    calculatorResult.innerHTML = secondFinish;
+    calculatorAnswer.innerHTML = secondFinish;
+    let equation = result;
+    let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${secondFinish}</span>`;
+    answers.push(addItem);
+    renderAnswers();
+    calculatorAnswer.innerHTML = "";
+    statement = [];
+    statement.push({
+      val: secondFinish,
+      type: "num"
+    });
+  }
 }
+
+square.addEventListener("click", operateSquare);
+function operateSquare() {}
 
 /* square.addEventListener("click", operateSquare);
 function operateSquare() {
