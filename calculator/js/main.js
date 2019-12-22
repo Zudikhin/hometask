@@ -171,160 +171,115 @@ function operateEqual() {
 }
 
 square.addEventListener("click", operateSquare);
-function operateSquare() {}
-
-/* square.addEventListener("click", operateSquare);
 function operateSquare() {
-  let stringAnswer = calculatorAnswer.innerHTML;
-  let sizeStringAnswer = stringAnswer.length;
-  let stringResult = calculatorResult.innerHTML;
-  let deleteLast = stringResult.substring(
-    0,
-    stringResult.length - sizeStringAnswer
-  );
-  let parsing = parseInt(stringAnswer);
-  let square = parsing * parsing;
-  calculatorAnswer.innerHTML = square;
-  calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-  if (isNaN(square)) {
-    calculatorAnswer.innerHTML = "";
-    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-  }
-} */
-
-// statement.slice(-1)[0].val
-
-/* function addOperate(event) {
-  if (statement.length == 0) {
-
-    if(calculatorAnswer.innerHTML == "") {
+  if (calculatorAnswer.innerHTML == "") {
+    if (statement.length == 0) {
+      return false;
+    } else if (statement.slice(-1)[0].type == "operate") {
+      statement.splice(-1, 1);
+      let lastElement = statement.slice(-1)[0].val;
+      statement.splice(-1, 1);
+      let squareLastElement = lastElement * lastElement;
       statement.push({
-        val: event.target.value,
-        type: "operate"
-      });
-    } else {
-      statement.push({
-        val: calculatorAnswer.innerHTML,
+        val: squareLastElement,
         type: "num"
       });
+      let delResult = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - 1
+      );
+      let finalResult = delResult.substring(
+        0,
+        delResult.length - lastElement.length
+      );
+      calculatorResult.innerHTML = finalResult + statement.slice(-1)[0].val;
+      calculatorAnswer.innerHTML = statement.slice(-1)[0].val;
+    } else if (statement.slice(-1)[0].type == "num") {
+      let lastItem = statement.slice(-1)[0].val;
+      let stringlastItem = lastItem.toString();
+      let squareLastItem = stringlastItem * stringlastItem;
+      statement.splice(-1, 1);
       statement.push({
-        val: event.target.value,
-        type: "operate"
+        val: squareLastItem,
+        type: "num"
       });
+      calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - stringlastItem.length
+      );
     }
-
-  } else if (statement.slice(-1)[0].type == "num") {
+  } else {
+    let numberCalculatorAnswer = calculatorAnswer.innerHTML;
+    let squareCalculatorAnswer =
+      numberCalculatorAnswer * numberCalculatorAnswer;
     statement.push({
-      val: event.target.value,
-      type: "operate"
-    });
-  } else if (statement.slice(-1)[0].type == "operate") {
-    statement.push({
-      val: calculatorAnswer.innerHTML,
+      val: squareCalculatorAnswer,
       type: "num"
     });
-    statement.push({
-      val: event.target.value,
-      type: "operate"
-    });
+    let deleteLast = calculatorResult.innerHTML.substring(
+      0,
+      calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
+    );
+    calculatorAnswer.innerHTML = squareCalculatorAnswer;
+    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
   }
-  console.log(statement);
-} */
+}
 
-/* let answer = "0";
-let answers = [];
-let has_result = false;
-
-function renderAnswers() {
-  if (answers.length >= 20) {
-    answers.splice(0, 1);
-    calculatorLastAnswers.innerHTML = "";
-    answers.forEach(element => {
-      let p = document.createElement("p");
-      calculatorLastAnswers.appendChild(p);
-      p.innerHTML = element;
-    });
-    console.log(answers);
+onex.addEventListener("click", operateOneDivide);
+function operateOneDivide() {
+  if (calculatorAnswer.innerHTML == "") {
+    if (statement.length == 0) {
+      return false;
+    } else if (statement.slice(-1)[0].type == "operate") {
+      statement.splice(-1, 1);
+      let lastElement = statement.slice(-1)[0].val;
+      statement.splice(-1, 1);
+      let divideLastElement = 1 / lastElement;
+      statement.push({
+        val: divideLastElement,
+        type: "num"
+      });
+      let delResult = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - 1
+      );
+      let finalResult = delResult.substring(
+        0,
+        delResult.length - lastElement.length
+      );
+      calculatorResult.innerHTML = finalResult + statement.slice(-1)[0].val;
+      calculatorAnswer.innerHTML = statement.slice(-1)[0].val;
+    } else if (statement.slice(-1)[0].type == "num") {
+      let lastItem = statement.slice(-1)[0].val;
+      let stringlastItem = lastItem.toString();
+      let secondDivideLastItem = stringlastItem * stringlastItem;
+      statement.splice(-1, 1);
+      statement.push({
+        val: secondDivideLastItem,
+        type: "num"
+      });
+      calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - stringlastItem.length
+      );
+    }
   } else {
-    calculatorLastAnswers.innerHTML = "";
-    answers.forEach(element => {
-      let p = document.createElement("p");
-      calculatorLastAnswers.appendChild(p);
-      p.innerHTML = element;
+    let numberCalculatorAnswer = calculatorAnswer.innerHTML;
+    let thirdDivideCalculatorAnswer = 1 / numberCalculatorAnswer;
+    statement.push({
+      val: thirdDivideCalculatorAnswer,
+      type: "num"
     });
-  }
-}
-
-plus.addEventListener("click", operatePlus);
-function operatePlus() {
-  calculatorAnswer.innerHTML = "";
-  let sizeCalculatorResult = calculatorResult.innerHTML;
-  let lastSymbol = sizeCalculatorResult.slice(-1);
-  if (
-    lastSymbol == "-" ||
-    lastSymbol == "/" ||
-    lastSymbol == "*" ||
-    lastSymbol == "+"
-  ) {
-    let circumcisionString = sizeCalculatorResult.substring(
+    let deleteLast = calculatorResult.innerHTML.substring(
       0,
-      sizeCalculatorResult.length - 1
+      calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
     );
-    calculatorResult.innerHTML = circumcisionString;
+    calculatorAnswer.innerHTML = thirdDivideCalculatorAnswer;
+    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
   }
-  calculatorResult.innerHTML += "+";
-  has_result = false;
 }
 
-times.addEventListener("click", operateTimes);
-function operateTimes() {
-  calculatorAnswer.innerHTML = "";
-  let sizeCalculatorResult = calculatorResult.innerHTML;
-  let lastSymbol = sizeCalculatorResult.slice(-1);
-  if (
-    lastSymbol == "+" ||
-    lastSymbol == "/" ||
-    lastSymbol == "-" ||
-    lastSymbol == "*"
-  ) {
-    let circumcisionString = sizeCalculatorResult.substring(
-      0,
-      sizeCalculatorResult.length - 1
-    );
-    calculatorResult.innerHTML = circumcisionString;
-  }
-  calculatorResult.innerHTML += "*";
-  has_result = false;
-}
-
-minus.addEventListener("click", operateMinus);
-function operateMinus() {
-  calculatorAnswer.innerHTML = "";
-  calculatorResult.innerHTML += "-";
-  has_result = false;
-}
-
-divide.addEventListener("click", operateDivide);
-function operateDivide() {
-  calculatorAnswer.innerHTML = "";
-  let sizeCalculatorResult = calculatorResult.innerHTML;
-  let lastSymbol = sizeCalculatorResult.slice(-1);
-  if (
-    lastSymbol == "-" ||
-    lastSymbol == "+" ||
-    lastSymbol == "*" ||
-    lastSymbol == "/"
-  ) {
-    let circumcisionString = sizeCalculatorResult.substring(
-      0,
-      sizeCalculatorResult.length - 1
-    );
-    calculatorResult.innerHTML = circumcisionString;
-  }
-  calculatorResult.innerHTML += "/";
-  has_result = false;
-}
-
+/* 
 backspace.addEventListener("click", deleteLast);
 function deleteLast() {
   let beforeCalculatorAnswer = calculatorAnswer.innerHTML;
@@ -333,60 +288,6 @@ function deleteLast() {
   let afterCalculatorResult = beforeCalculatorResult.slice(0, -1);
   calculatorAnswer.innerHTML = afterCalculatorAnswer;
   calculatorResult.innerHTML = afterCalculatorResult;
-}
-
-square.addEventListener("click", operateSquare);
-function operateSquare() {
-  let stringAnswer = calculatorAnswer.innerHTML;
-  let sizeStringAnswer = stringAnswer.length;
-  let stringResult = calculatorResult.innerHTML;
-  let deleteLast = stringResult.substring(
-    0,
-    stringResult.length - sizeStringAnswer
-  );
-  let parsing = parseInt(stringAnswer);
-  let square = parsing * parsing;
-  calculatorAnswer.innerHTML = square;
-  calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-  if (isNaN(square)) {
-    calculatorAnswer.innerHTML = "";
-    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-  }
-}
-
-square.addEventListener("click", operateSquare);
-function operateSquare() {
-  let sizeCalculatorResult = calculatorResult.innerHTML;
-  let lastSymbol = sizeCalculatorResult.slice(-1);
-  if (
-    lastSymbol == "+" ||
-    lastSymbol == "-" ||
-    lastSymbol == "/" ||
-    lastSymbol == "*"
-  ) {
-    let circumcisionString = sizeCalculatorResult.substring(
-      0,
-      sizeCalculatorResult.length - 1
-    );
-    let squareCircumcisionString = circumcisionString * circumcisionString;
-    calculatorResult.innerHTML = squareCircumcisionString;
-  } else {
-    let stringAnswer = calculatorAnswer.innerHTML;
-    let sizeStringAnswer = stringAnswer.length;
-    let stringResult = calculatorResult.innerHTML;
-    let deleteLast = stringResult.substring(
-      0,
-      stringResult.length - sizeStringAnswer
-    );
-    let parsing = parseInt(stringAnswer);
-    let square = parsing * parsing;
-    calculatorAnswer.innerHTML = square;
-    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-    if (isNaN(square)) {
-      calculatorAnswer.innerHTML = "";
-      calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-    }
-  }
 }
 
 onex.addEventListener("click", operateOneDivide);
@@ -406,17 +307,4 @@ function operateOneDivide() {
     calculatorAnswer.innerHTML = "";
     calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
   }
-}
-
-equal.addEventListener("click", operateEqual);
-function operateEqual() {
-  has_result = true;
-  let equation = calculatorResult.innerHTML;
-  let result = eval(calculatorResult.innerHTML);
-  calculatorAnswer.innerHTML = result;
-  calculatorResult.innerHTML = result;
-  answer = result;
-  let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${result}</span>`;
-  answers.push(addItem);
-  renderAnswers();
 } */
