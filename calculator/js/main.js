@@ -207,6 +207,8 @@ function operateSquare() {
         0,
         calculatorResult.innerHTML.length - stringlastItem.length
       );
+      calculatorAnswer.innerHTML = statement.slice(-1)[0].val;
+      calculatorResult.innerHTML = statement.slice(-1)[0].val;
     }
   } else {
     let numberCalculatorAnswer = calculatorAnswer.innerHTML;
@@ -279,32 +281,72 @@ function operateOneDivide() {
   }
 }
 
-/* 
 backspace.addEventListener("click", deleteLast);
 function deleteLast() {
-  let beforeCalculatorAnswer = calculatorAnswer.innerHTML;
-  let afterCalculatorAnswer = beforeCalculatorAnswer.slice(0, -1);
-  let beforeCalculatorResult = calculatorResult.innerHTML;
-  let afterCalculatorResult = beforeCalculatorResult.slice(0, -1);
-  calculatorAnswer.innerHTML = afterCalculatorAnswer;
-  calculatorResult.innerHTML = afterCalculatorResult;
+  if (statement.length == 0) {
+    let beforeCalculatorAnswer = calculatorAnswer.innerHTML;
+    let afterCalculatorAnswer = beforeCalculatorAnswer.slice(0, -1);
+    calculatorAnswer.innerHTML = afterCalculatorAnswer;
+    statement.push({
+      val: afterCalculatorAnswer,
+      type: "num"
+    });
+  } else if (statement.slice(-1)[0].type == "num") {
+    if (calculatorAnswer.innerHTML == "") {
+      if (statement.slice(-1)[0].val.length == 1) {
+        statement.pop();
+        calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - 1
+        );
+      } else {
+        let lastArrayElement = statement.slice(-1)[0].val;
+        let deleteSubstringArrayElement = lastArrayElement.substring(
+          0,
+          lastArrayElement.length - 1
+        );
+        statement.pop();
+        statement.push({
+          val: deleteSubstringArrayElement,
+          type: "num"
+        });
+        calculatorResult.innerHTML =
+          calculatorResult.innerHTML.substring(
+            0,
+            calculatorResult.innerHTML.length - lastArrayElement.length
+          ) + deleteSubstringArrayElement;
+      }
+    } else {
+      // здесь нужно сделать
+      calculatorAnswer.innerHTML = calculatorAnswer.innerHTML.substring(
+        0,
+        calculatorAnswer.innerHTML.length - 1
+      );
+      calculatorResult.innerHTML = 
+    }
+  } else if (statement.slice(-1)[0].type == "operate") {
+    if (calculatorAnswer.innerHTML == "") {
+      statement.pop();
+      let beforeCalculatorResult = calculatorResult.innerHTML;
+      let afterCalculatorResult = beforeCalculatorResult.slice(0, -1);
+      calculatorResult.innerHTML = afterCalculatorResult;
+    } else {
+      let defaultAnswer = calculatorAnswer.innerHTML;
+      calculatorAnswer.innerHTML = calculatorAnswer.innerHTML.substring(
+        0,
+        calculatorAnswer.innerHTML.length - 1
+      );
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - defaultAnswer.length
+        ) + calculatorAnswer.innerHTML;
+      statement.push({
+        val: calculatorAnswer.innerHTML,
+        type: "num"
+      });
+    }
+  }
+  console.log(statement);
 }
 
-onex.addEventListener("click", operateOneDivide);
-function operateOneDivide() {
-  let stringAnswer = calculatorAnswer.innerHTML;
-  let sizeStringAnswer = stringAnswer.length;
-  let stringResult = calculatorResult.innerHTML;
-  let deleteLast = stringResult.substring(
-    0,
-    stringResult.length - sizeStringAnswer
-  );
-  let parsing = parseInt(stringAnswer);
-  let oneDivide = 1 / parsing;
-  calculatorAnswer.innerHTML = oneDivide;
-  calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-  if (isNaN(rounding)) {
-    calculatorAnswer.innerHTML = "";
-    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
-  }
-} */
