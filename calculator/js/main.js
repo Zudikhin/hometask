@@ -122,6 +122,7 @@ function renderAnswers() {
 }
 
 equal.addEventListener("click", operateEqual);
+
 function operateEqual() {
   has_result = true;
   if (calculatorAnswer.innerHTML != "") {
@@ -171,6 +172,7 @@ function operateEqual() {
 }
 
 square.addEventListener("click", operateSquare);
+
 function operateSquare() {
   if (calculatorAnswer.innerHTML == "") {
     if (statement.length == 0) {
@@ -211,23 +213,41 @@ function operateSquare() {
       calculatorResult.innerHTML = statement.slice(-1)[0].val;
     }
   } else {
-    let numberCalculatorAnswer = calculatorAnswer.innerHTML;
-    let squareCalculatorAnswer =
-      numberCalculatorAnswer * numberCalculatorAnswer;
-    statement.push({
-      val: squareCalculatorAnswer,
-      type: "num"
-    });
-    let deleteLast = calculatorResult.innerHTML.substring(
-      0,
-      calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
-    );
-    calculatorAnswer.innerHTML = squareCalculatorAnswer;
-    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+    if (statement.slice(-1)[0].type == "num") {
+      let numberCalculatorAnswer = calculatorAnswer.innerHTML;
+      let squareCalculatorAnswer =
+        numberCalculatorAnswer * numberCalculatorAnswer;
+      statement.pop();
+      statement.push({
+        val: squareCalculatorAnswer,
+        type: "num"
+      });
+      let deleteLast = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
+      );
+      calculatorAnswer.innerHTML = squareCalculatorAnswer;
+      calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+    } else {
+      let numberCalculatorAnswer = calculatorAnswer.innerHTML;
+      let squareCalculatorAnswer =
+        numberCalculatorAnswer * numberCalculatorAnswer;
+      statement.push({
+        val: squareCalculatorAnswer,
+        type: "num"
+      });
+      let deleteLast = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
+      );
+      calculatorAnswer.innerHTML = squareCalculatorAnswer;
+      calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+    }
   }
 }
 
 onex.addEventListener("click", operateOneDivide);
+
 function operateOneDivide() {
   if (calculatorAnswer.innerHTML == "") {
     if (statement.length == 0) {
@@ -282,6 +302,7 @@ function operateOneDivide() {
 }
 
 backspace.addEventListener("click", deleteLast);
+
 function deleteLast() {
   if (statement.length == 0) {
     let beforeCalculatorAnswer = calculatorAnswer.innerHTML;
@@ -317,12 +338,24 @@ function deleteLast() {
           ) + deleteSubstringArrayElement;
       }
     } else {
-      // здесь нужно сделать
+      let defaultCalculatorAnswer = calculatorAnswer.innerHTML;
       calculatorAnswer.innerHTML = calculatorAnswer.innerHTML.substring(
         0,
         calculatorAnswer.innerHTML.length - 1
       );
-      calculatorResult.innerHTML = 
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - defaultCalculatorAnswer.length
+        ) + calculatorAnswer.innerHTML;
+      statement.pop();
+      statement.push({
+        val: calculatorAnswer.innerHTML,
+        type: "num"
+      });
+      if (statement.slice(-1)[0].val.length == 0) {
+        statement.pop();
+      }
     }
   } else if (statement.slice(-1)[0].type == "operate") {
     if (calculatorAnswer.innerHTML == "") {
@@ -347,6 +380,4 @@ function deleteLast() {
       });
     }
   }
-  console.log(statement);
 }
-
