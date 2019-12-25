@@ -51,11 +51,26 @@ let answers = [];
 let has_result = false;
 
 function addNumber(event) {
-  if (has_result) {
+  if (statement.length == 0) {
+    if (has_result) {
+      has_result = false;
+      calculatorAnswer.innerHTML = event.target.innerHTML;
+      calculatorResult.innerHTML = event.target.innerHTML;
+    } else {
+      calculatorAnswer.innerHTML += event.target.innerHTML;
+      calculatorResult.innerHTML += event.target.innerHTML;
+    }
+  } else if (statement.slice(-1)[0].type == "num") {
     has_result = false;
-    calculatorAnswer.innerHTML = event.target.innerHTML;
-    calculatorResult.innerHTML = event.target.innerHTML;
-  } else {
+    let lastElement = statement.slice(-1)[0].val;
+    statement.pop();
+    calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
+      0,
+      calculatorResult.innerHTML.length - lastElement.length
+    );
+    calculatorResult.innerHTML += event.target.innerHTML;
+    calculatorAnswer.innerHTML += event.target.innerHTML;
+  } else if (statement.slice(-1)[0].type == "operate") {
     calculatorAnswer.innerHTML += event.target.innerHTML;
     calculatorResult.innerHTML += event.target.innerHTML;
   }
@@ -150,8 +165,9 @@ function operateEqual() {
     renderAnswers();
     calculatorAnswer.innerHTML = "";
     statement = [];
+    let stringFirstFinish = firstFinish.toString();
     statement.push({
-      val: firstFinish,
+      val: stringFirstFinish,
       type: "num"
     });
   } else {
@@ -164,8 +180,9 @@ function operateEqual() {
     renderAnswers();
     calculatorAnswer.innerHTML = "";
     statement = [];
+    let stringSecondFinish = secondFinish.toString();
     statement.push({
-      val: secondFinish,
+      val: stringSecondFinish,
       type: "num"
     });
   }
@@ -182,8 +199,9 @@ function operateSquare() {
       let lastElement = statement.slice(-1)[0].val;
       statement.splice(-1, 1);
       let squareLastElement = lastElement * lastElement;
+      let stringSquareLastElement = squareLastElement.toString();
       statement.push({
-        val: squareLastElement,
+        val: stringSquareLastElement,
         type: "num"
       });
       let delResult = calculatorResult.innerHTML.substring(
@@ -200,48 +218,60 @@ function operateSquare() {
       let lastItem = statement.slice(-1)[0].val;
       let stringlastItem = lastItem.toString();
       let squareLastItem = stringlastItem * stringlastItem;
+      let stringSquareLastItem = squareLastItem.toString();
       statement.splice(-1, 1);
       statement.push({
-        val: squareLastItem,
+        val: stringSquareLastItem,
         type: "num"
       });
-      calculatorResult.innerHTML.substring(
-        0,
-        calculatorResult.innerHTML.length - stringlastItem.length
-      );
-      calculatorAnswer.innerHTML = statement.slice(-1)[0].val;
-      calculatorResult.innerHTML = statement.slice(-1)[0].val;
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - stringlastItem.length
+        ) + squareLastItem;
     }
   } else {
-    if (statement.slice(-1)[0].type == "num") {
+    if (statement.length == 0) {
+      let bufferCalcAnswer = calculatorAnswer.innerHTML;
+      let squareBufferCalcAnswer = bufferCalcAnswer * bufferCalcAnswer;
+      let stringSquareBufferCalcAnswer = squareBufferCalcAnswer.toString();
+      statement.push({
+        val: stringSquareBufferCalcAnswer,
+        type: "num"
+      });
+      calculatorResult.innerHTML = squareBufferCalcAnswer;
+      calculatorAnswer.innerHTML = "";
+    } else if (statement.slice(-1)[0].type == "num") {
       let numberCalculatorAnswer = calculatorAnswer.innerHTML;
       let squareCalculatorAnswer =
         numberCalculatorAnswer * numberCalculatorAnswer;
+      let stringSquareCalculatorAnswer = squareCalculatorAnswer.toString();
       statement.pop();
       statement.push({
-        val: squareCalculatorAnswer,
+        val: stringSquareCalculatorAnswer,
         type: "num"
       });
       let deleteLast = calculatorResult.innerHTML.substring(
         0,
         calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
       );
-      calculatorAnswer.innerHTML = squareCalculatorAnswer;
-      calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+      calculatorAnswer.innerHTML = "";
+      calculatorResult.innerHTML = deleteLast + squareCalculatorAnswer;
     } else {
       let numberCalculatorAnswer = calculatorAnswer.innerHTML;
       let squareCalculatorAnswer =
         numberCalculatorAnswer * numberCalculatorAnswer;
+      let stringSquareCalculatorAnswer = squareCalculatorAnswer.toString();
       statement.push({
-        val: squareCalculatorAnswer,
+        val: stringSquareCalculatorAnswer,
         type: "num"
       });
       let deleteLast = calculatorResult.innerHTML.substring(
         0,
         calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
       );
-      calculatorAnswer.innerHTML = squareCalculatorAnswer;
-      calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+      calculatorAnswer.innerHTML = "";
+      calculatorResult.innerHTML = deleteLast + squareCalculatorAnswer;
     }
   }
 }
@@ -257,8 +287,9 @@ function operateOneDivide() {
       let lastElement = statement.slice(-1)[0].val;
       statement.splice(-1, 1);
       let divideLastElement = 1 / lastElement;
+      let stringDivideLastElement = divideLastElement.toString();
       statement.push({
-        val: divideLastElement,
+        val: stringDivideLastElement,
         type: "num"
       });
       let delResult = calculatorResult.innerHTML.substring(
@@ -270,34 +301,38 @@ function operateOneDivide() {
         delResult.length - lastElement.length
       );
       calculatorResult.innerHTML = finalResult + statement.slice(-1)[0].val;
-      calculatorAnswer.innerHTML = statement.slice(-1)[0].val;
+      calculatorAnswer.innerHTML = "";
     } else if (statement.slice(-1)[0].type == "num") {
       let lastItem = statement.slice(-1)[0].val;
       let stringlastItem = lastItem.toString();
-      let secondDivideLastItem = stringlastItem * stringlastItem;
+      let secondDivideLastItem = 1 / stringlastItem;
+      let stringSecondDivideLastItem = secondDivideLastItem.toString();
       statement.splice(-1, 1);
       statement.push({
-        val: secondDivideLastItem,
+        val: stringSecondDivideLastItem,
         type: "num"
       });
-      calculatorResult.innerHTML.substring(
-        0,
-        calculatorResult.innerHTML.length - stringlastItem.length
-      );
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - stringlastItem.length
+        ) + statement.slice(-1)[0].val;
+      calculatorAnswer.innerHTML = "";
     }
   } else {
     let numberCalculatorAnswer = calculatorAnswer.innerHTML;
     let thirdDivideCalculatorAnswer = 1 / numberCalculatorAnswer;
+    let stringThirdDivideCalculatorAnswer = thirdDivideCalculatorAnswer.toString();
     statement.push({
-      val: thirdDivideCalculatorAnswer,
+      val: stringThirdDivideCalculatorAnswer,
       type: "num"
     });
     let deleteLast = calculatorResult.innerHTML.substring(
       0,
       calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
     );
-    calculatorAnswer.innerHTML = thirdDivideCalculatorAnswer;
-    calculatorResult.innerHTML = deleteLast + calculatorAnswer.innerHTML;
+    calculatorResult.innerHTML = deleteLast + thirdDivideCalculatorAnswer;
+    calculatorAnswer.innerHTML = "";
   }
 }
 
@@ -312,6 +347,7 @@ function deleteLast() {
       val: afterCalculatorAnswer,
       type: "num"
     });
+    calculatorResult.innerHTML = afterCalculatorAnswer;
   } else if (statement.slice(-1)[0].type == "num") {
     if (calculatorAnswer.innerHTML == "") {
       if (statement.slice(-1)[0].val.length == 1) {
