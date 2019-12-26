@@ -4,7 +4,7 @@ let calculatorMain = document.querySelector(".calculator__main");
 let calculatorAnswer = document.querySelector(".calculator__answer");
 let calculatorResult = document.querySelector(".calculator__result");
 let calculatorKeyboard = document.querySelector(".calculator__keyboard");
-let percent = document.querySelector(".percent");
+let percent = document.querySelector("#percent");
 let ce = document.querySelector("#ce");
 let c = document.querySelector("#c");
 let backspace = document.querySelector("#backspace");
@@ -40,6 +40,7 @@ one.addEventListener("click", addNumber);
 two.addEventListener("click", addNumber);
 three.addEventListener("click", addNumber);
 zero.addEventListener("click", addNumber);
+coma.addEventListener("click", addPoint);
 
 plus.addEventListener("click", addOperate);
 minus.addEventListener("click", addOperate);
@@ -75,7 +76,9 @@ function addNumber(event) {
     calculatorResult.innerHTML += event.target.innerHTML;
   }
 }
-
+function addPoint(event) {
+  console.log(event.target.innerHTML);
+}
 function addOperate(event) {
   if (calculatorAnswer.innerHTML == "") {
     has_result = false;
@@ -415,5 +418,124 @@ function deleteLast() {
         type: "num"
       });
     }
+  }
+}
+
+root.addEventListener("click", rootNumber);
+
+function rootNumber() {
+  if (calculatorAnswer.innerHTML == "") {
+    if (statement.length == 0) {
+      return false;
+    } else if (statement.slice(-1)[0].type == "operate") {
+      statement.pop();
+      calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - 1
+      );
+      let lastArrayElement = statement.slice(-1)[0].val;
+      let sqrtNumberSecond = Math.sqrt(lastArrayElement);
+      let roundSqrtNumberSecond = Math.round(sqrtNumberSecond * 100) / 100;
+      let stringRoundSqrtNumberSecond = roundSqrtNumberSecond.toString();
+      statement.pop();
+      statement.push({
+        val: stringRoundSqrtNumberSecond,
+        type: "num"
+      });
+      calculatorAnswer.innerHTML = "";
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - lastArrayElement.length
+        ) + stringRoundSqrtNumberSecond;
+    } else if (statement.slice(-1)[0].type == "num") {
+      let lastArrayElementSecond = statement.slice(-1)[0].val;
+      statement.pop();
+      let sqrtNumberThird = Math.sqrt(lastArrayElementSecond);
+      let roundSqrtNumberThird = Math.round(sqrtNumberThird * 100) / 100;
+      let stringRoundSqrtNumberThird = roundSqrtNumberThird.toString();
+      statement.push({
+        val: stringRoundSqrtNumberThird,
+        type: "num"
+      });
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - lastArrayElementSecond.length
+        ) + stringRoundSqrtNumberThird;
+    }
+  } else {
+    let defaultAnswer = calculatorAnswer.innerHTML;
+    let sqrtNumber = Math.sqrt(defaultAnswer);
+    let roundSqrtNumber = Math.round(sqrtNumber * 100) / 100;
+    let stringRoundSqrtNumber = roundSqrtNumber.toString();
+    statement.push({
+      val: stringRoundSqrtNumber,
+      type: "num"
+    });
+    calculatorAnswer.innerHTML = "";
+    calculatorResult.innerHTML =
+      calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - defaultAnswer.length
+      ) + stringRoundSqrtNumber;
+  }
+}
+
+percent.addEventListener("click", percentNumber);
+
+function percentNumber() {
+  if (calculatorAnswer.innerHTML == "") {
+    if (statement.length == 0) {
+      return false;
+    } else if (statement.slice(-1)[0].type == "operate") {
+      statement.pop();
+      calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - 1
+      );
+      let lastArrayElement = statement.slice(-1)[0].val;
+      let percentAnswerFirst = lastArrayElement / 100;
+      let stringPercentAnswerFirst = percentAnswerFirst.toString();
+      statement.pop();
+      statement.push({
+        val: stringPercentAnswerFirst,
+        type: "num"
+      });
+      calculatorAnswer.innerHTML = "";
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - lastArrayElement.length
+        ) + stringPercentAnswerFirst;
+    } else if (statement.slice(-1)[0].type == "num") {
+      let lastArrayElementSecond = statement.slice(-1)[0].val;
+      statement.pop();
+      let percentAnswerSecond = lastArrayElementSecond / 100;
+      let stringPercentAnswerFirst = percentAnswerSecond.toString();
+      statement.push({
+        val: stringPercentAnswerFirst,
+        type: "num"
+      });
+      calculatorResult.innerHTML =
+        calculatorResult.innerHTML.substring(
+          0,
+          calculatorResult.innerHTML.length - lastArrayElementSecond.length
+        ) + stringPercentAnswerFirst;
+    }
+  } else {
+    let defaultAnswer = calculatorAnswer.innerHTML;
+    let percentDefaultAnswer = defaultAnswer / 100;
+    let stringPercentDefaultAnswer = percentDefaultAnswer.toString();
+    statement.push({
+      val: stringPercentDefaultAnswer,
+      type: "num"
+    });
+    calculatorResult.innerHTML =
+      calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - defaultAnswer.length
+      ) + stringPercentDefaultAnswer;
+    calculatorAnswer.innerHTML = "";
   }
 }
