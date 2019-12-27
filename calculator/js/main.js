@@ -11,7 +11,7 @@ let backspace = document.querySelector("#backspace");
 let onex = document.querySelector("#onex");
 let square = document.querySelector("#square");
 let root = document.querySelector("#root");
-let changePlusMinus = document.querySelector("#change_plus_minus");
+let ac = document.querySelector("#AC");
 let coma = document.querySelector("#coma");
 let equal = document.querySelector("#equal");
 let plus = document.querySelector("#plus");
@@ -40,7 +40,7 @@ one.addEventListener("click", addNumber);
 two.addEventListener("click", addNumber);
 three.addEventListener("click", addNumber);
 zero.addEventListener("click", addNumber);
-coma.addEventListener("click", addPoint);
+coma.addEventListener("click", addNumber);
 
 plus.addEventListener("click", addOperate);
 minus.addEventListener("click", addOperate);
@@ -75,9 +75,6 @@ function addNumber(event) {
     calculatorAnswer.innerHTML += event.target.innerHTML;
     calculatorResult.innerHTML += event.target.innerHTML;
   }
-}
-function addPoint(event) {
-  console.log(event.target.innerHTML);
 }
 function addOperate(event) {
   if (calculatorAnswer.innerHTML == "") {
@@ -538,4 +535,29 @@ function percentNumber() {
       ) + stringPercentDefaultAnswer;
     calculatorAnswer.innerHTML = "";
   }
+}
+
+c.addEventListener("click", clearResult);
+
+function clearResult() {
+  calculatorResult.innerHTML = "";
+  calculatorAnswer.innerHTML = "";
+}
+
+ce.addEventListener("click", clearAnswer);
+
+function clearAnswer() {
+  calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
+    0,
+    calculatorResult.innerHTML.length - calculatorAnswer.innerHTML.length
+  );
+  calculatorAnswer.innerHTML = "";
+}
+
+ac.addEventListener("click", allClear);
+
+function allClear() {
+  calculatorAnswer.innerHTML = "";
+  calculatorResult.innerHTML = "";
+  calculatorLastAnswers.innerHTML = "";
 }
