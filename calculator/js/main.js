@@ -29,6 +29,7 @@ let one = document.querySelector("#one");
 let two = document.querySelector("#two");
 let three = document.querySelector("#three");
 let zero = document.querySelector("#zero");
+let btn = document.querySelectorAll(".btn");
 
 seven.addEventListener("click", addNumber);
 eight.addEventListener("click", addNumber);
@@ -52,28 +53,37 @@ let answers = [];
 let has_result = false;
 
 function addNumber(event) {
-  if (statement.length == 0) {
-    if (has_result) {
+  if (
+    calculatorAnswer.innerHTML.length > 20 &&
+    calculatorResult.innerHTML.length > 20
+  ) {
+    return false;
+  } else {
+    if (statement.length == 0) {
+      if (has_result) {
+        has_result = false;
+        calculatorAnswer.innerHTML = event.target.innerHTML;
+        calculatorResult.innerHTML = event.target.innerHTML;
+        console.log("zdes");
+      } else {
+        calculatorAnswer.innerHTML += event.target.innerHTML;
+        calculatorResult.innerHTML += event.target.innerHTML;
+        console.log("loh");
+      }
+    } else if (statement.slice(-1)[0].type == "num") {
       has_result = false;
-      calculatorAnswer.innerHTML = event.target.innerHTML;
-      calculatorResult.innerHTML = event.target.innerHTML;
-    } else {
+      let lastElement = statement.slice(-1)[0].val;
+      statement.pop();
+      calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
+        0,
+        calculatorResult.innerHTML.length - lastElement.length
+      );
+      calculatorResult.innerHTML += event.target.innerHTML;
+      calculatorAnswer.innerHTML += event.target.innerHTML;
+    } else if (statement.slice(-1)[0].type == "operate") {
       calculatorAnswer.innerHTML += event.target.innerHTML;
       calculatorResult.innerHTML += event.target.innerHTML;
     }
-  } else if (statement.slice(-1)[0].type == "num") {
-    has_result = false;
-    let lastElement = statement.slice(-1)[0].val;
-    statement.pop();
-    calculatorResult.innerHTML = calculatorResult.innerHTML.substring(
-      0,
-      calculatorResult.innerHTML.length - lastElement.length
-    );
-    calculatorResult.innerHTML += event.target.innerHTML;
-    calculatorAnswer.innerHTML += event.target.innerHTML;
-  } else if (statement.slice(-1)[0].type == "operate") {
-    calculatorAnswer.innerHTML += event.target.innerHTML;
-    calculatorResult.innerHTML += event.target.innerHTML;
   }
 }
 function addOperate(event) {
@@ -118,7 +128,7 @@ function addOperate(event) {
 }
 
 function renderAnswers() {
-  if (answers.length >= 20) {
+  if (answers.length >= 5) {
     answers.splice(0, 1);
     calculatorLastAnswers.innerHTML = "";
     answers.forEach(element => {
@@ -160,7 +170,7 @@ function operateEqual() {
     calculatorResult.innerHTML = firstFinish;
     calculatorAnswer.innerHTML = firstFinish;
     let equation = result;
-    let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${firstFinish}</span>`;
+    let addItem = `<span class="calculator__result_decide">${equation}=</span><br><span class="calculator__result_equal">${firstFinish}</span>`;
     answers.push(addItem);
     renderAnswers();
     calculatorAnswer.innerHTML = "";
@@ -175,7 +185,7 @@ function operateEqual() {
     calculatorResult.innerHTML = secondFinish;
     calculatorAnswer.innerHTML = secondFinish;
     let equation = result;
-    let addItem = `<span>${equation}=</span><br><span class="calculator__result_equal">${secondFinish}</span>`;
+    let addItem = `<span class="calculator__result_decide">${equation}=</span><br><span class="calculator__result_equal">${secondFinish}</span>`;
     answers.push(addItem);
     renderAnswers();
     calculatorAnswer.innerHTML = "";
@@ -542,6 +552,7 @@ c.addEventListener("click", clearResult);
 function clearResult() {
   calculatorResult.innerHTML = "";
   calculatorAnswer.innerHTML = "";
+  statement = [];
 }
 
 ce.addEventListener("click", clearAnswer);
@@ -560,4 +571,5 @@ function allClear() {
   calculatorAnswer.innerHTML = "";
   calculatorResult.innerHTML = "";
   calculatorLastAnswers.innerHTML = "";
+  statement = [];
 }
