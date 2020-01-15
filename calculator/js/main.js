@@ -128,7 +128,7 @@ function addOperate(event) {
 }
 
 function renderAnswers() {
-  if (answers.length >= 5) {
+  if (answers.length >= 8) {
     answers.splice(0, 1);
     calculatorLastAnswers.innerHTML = "";
     answers.forEach(element => {
